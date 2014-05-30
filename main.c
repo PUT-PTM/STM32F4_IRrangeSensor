@@ -21,7 +21,7 @@ void Timer()
 
     TimerInitStructure.TIM_Prescaler = 0;
     TimerInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
-    TimerInitStructure.TIM_Period = 420; //generuje sygna³ o czêstotliwoœci 38kHz
+    TimerInitStructure.TIM_Period = 420;
     TimerInitStructure.TIM_ClockDivision = 0;
     TimerInitStructure.TIM_RepetitionCounter = 0;
     TIM_TimeBaseInit(TIM2, &TimerInitStructure);
@@ -29,7 +29,7 @@ void Timer()
     TIM_Cmd(TIM2, ENABLE);
 }
 
-void PWM() //generuje sygna³ o czêstotliwoœci 38kHz
+void PWM()
 {
     OutputChannelInit.TIM_OCMode = TIM_OCMode_PWM1;
     OutputChannelInit.TIM_Pulse = 0;
@@ -60,12 +60,12 @@ void Piny()
 {
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
-    GPIOStructure.GPIO_Pin = GPIO_Pin_1; //PA1 do pod³¹czenia odbiornika
+    GPIOStructure.GPIO_Pin = GPIO_Pin_1;
     GPIOStructure.GPIO_Mode = GPIO_Mode_IN;
     GPIOStructure.GPIO_Speed = GPIO_Speed_100MHz;
     GPIO_Init(GPIOA, &GPIOStructure);
 
-    GPIOStructure.GPIO_Pin = GPIO_Pin_2; //PA2 i PA3 do pod³¹czenia diód nadawczych
+    GPIOStructure.GPIO_Pin = GPIO_Pin_2;
     GPIOStructure.GPIO_Mode = GPIO_Mode_AF;
     GPIOStructure.GPIO_Speed = GPIO_Speed_100MHz;
     GPIO_Init(GPIOA, &GPIOStructure);
@@ -85,42 +85,42 @@ int main()
 
     while(1)
     {
-    	int x = 0; //zmienna pomocnicza
+    	int x = 0;
 
-    	TIM2->CCR3 = 210; //nadanie sygna³u o czêstotliwoœci 38kHz diod¹ pod³¹czon¹ do PA2
-    	TIM2->CCR4 = 0; //wy³¹czenie diody pod³¹czonej do PA3
+    	TIM2->CCR3 = 210;
+    	TIM2->CCR4 = 0;
     	if(!GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_1))
     	{
-    		x=1; //w naszym wypadku nadaje dioda po lewej stronie
+    		x=1;
     	}
     	Delay(0xFFFF);
 
-    	TIM2->CCR3 = 0; //odwrócenie, czyli nadanie sygna³u diod¹ pod³¹czon¹ do PA3 i wy³¹czenie tej pod PA2
+    	TIM2->CCR3 = 0;
     	TIM2->CCR4 = 210;
     	if(!GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_1))
     	{
-    	    x+=2; //w naszym wypadku nadaje dioda po prawej stronie
+    	    x+=2;
     	}
     	Delay(0xFFFF);
 
     	switch (x)
     	{
-			case 0: //brak przeszkód
+			case 0: //brak przeszkod
 				GPIO_ResetBits(GPIOD, GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15);
 			break;
-			case 1: //przeszkoda po lewej stronie urz¹dzenia
+			case 1: //przeszkoda po lewej
 			{
 				GPIO_ResetBits(GPIOD, GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15);
 				GPIO_SetBits(GPIOD, GPIO_Pin_12);
 				break;
 			}
-			case 2: //przeszkoda po prawej stronie urz¹dzenia
+			case 2: //przeszkoda po prawej
 			{
 				GPIO_ResetBits(GPIOD, GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15);
 				GPIO_SetBits(GPIOD, GPIO_Pin_14);
 				break;
 			}
-			case 3: //przeszkoda przed urz¹dzeniem
+			case 3: //przeszkoda na wprost
 			{
 				GPIO_ResetBits(GPIOD, GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15);
 				GPIO_SetBits(GPIOD, GPIO_Pin_13 | GPIO_Pin_15);
