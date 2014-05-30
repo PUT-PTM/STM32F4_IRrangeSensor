@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m4 -mthumb -Wall -ffunction-sections -g -O0 -c -DSTM32F407VG -DSTM32F4XX -DUSE_STDPERIPH_DRIVER -D__ASSEMBLY__ -I..\..\..\workspace\STM32F4_IRrangeSensor\cmsis -I..\..\..\workspace\STM32F4_IRrangeSensor -I..\..\..\workspace -I..\..\..\workspace\STM32F4_IRrangeSensor\cmsis_lib\include -I..\..\..\workspace\STM32F4_IRrangeSensor\cmsis_lib -I..\..\..\workspace\STM32F4_IRrangeSensor\cmsis_boot">
+      <target file="stm32f4xx_tim.o" lastModified="1464ce1dcb2">
+         <source file="..\..\..\cmsis_lib\source\stm32f4xx_tim.c" lastModified="1464cdfdc78"/>
+      </target>
+      <target file="stm32f4xx_rcc.o" lastModified="1464ce1daa7">
+         <source file="..\..\..\cmsis_lib\source\stm32f4xx_rcc.c" lastModified="1464cdfc538"/>
+      </target>
+      <target file="system_stm32f4xx.o" lastModified="1464ce1db8b">
+         <source file="..\..\..\cmsis_boot\system_stm32f4xx.c" lastModified="1461987f53a"/>
+      </target>
+      <target file="stm32f4xx_gpio.o" lastModified="1464ce1db21">
+         <source file="..\..\..\cmsis_lib\source\stm32f4xx_gpio.c" lastModified="1464cdfd136"/>
+      </target>
+      <target file="main.o" lastModified="1464ce1da05">
+         <source file="..\..\..\main.c" lastModified="1464ce086d8"/>
+      </target>
+      <target file="startup_stm32f4xx.o" lastModified="1464ce1d997">
+         <source file="..\..\..\cmsis_boot\startup\startup_stm32f4xx.c" lastModified="1464cdfa6b0"/>
+      </target>
+   </processor>
+</history>
